@@ -1,10 +1,8 @@
-import React from "react";
-import App, { Container } from "next/app";
-// import { Provider } from "react-redux";
-// import createStore from "../store";
+import React, {Fragment} from "react";
+import App from "next/app";
 
-// export const store = createStore();
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../public/css/global.css";
 
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
@@ -21,11 +19,9 @@ class MyApp extends App {
         const { Component, pageProps } = this.props;
 
         return (
-            <Container>
-                {/* <Provider store={store}> */}
-                    <Component {...pageProps} />
-                {/* </Provider> */}
-            </Container>
+            <Fragment>
+                <Component {...pageProps} />
+            </Fragment>
         );
     }
 }
