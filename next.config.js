@@ -1,22 +1,15 @@
-module.exports = {
-    webpack: (config, { dev }) => {
-        config.module.rules.push(
-            {
-                test: /\.(css|scss)/,
-                loader: 'emit-file-loader',
-                options: {
-                name: 'dist/[path][name].[ext]'
-                }
-            },
-            {
-                test: /\.css$/,
-                loader: 'babel-loader!raw-loader'
-            },
-            {
-                test: /\.scss$/,
-                loader: 'babel-loader!raw-loader!sass-loader'
-            }
-        )
-        return config
-    }
-}
+const withCSS = require("@zeit/next-css");
+const withSass = require("@zeit/next-sass");
+
+module.exports = withCSS(
+    withSass({
+        webpack: config => {
+            // Fixes npm packages that depend on `fs` module
+            config.node = {
+                fs: "empty"
+            };
+
+            return config;
+        }
+    })
+);
